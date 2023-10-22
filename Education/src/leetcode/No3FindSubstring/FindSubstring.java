@@ -6,19 +6,53 @@ import java.util.Arrays;
 public class FindSubstring {
 
     public static int lengthOfLongestSubstring(String s){
-
-
-    }
-
-    public static byte [][] findPairs(String s){
-        char [] stringChars = s.toCharArray();
-        byte [][] pairs = new byte[2][s.length()];
-        for (byte i = 0; i < s.length(); i++){
-            pairs[0][i] = i;
+        switch (s.length()){
+            case 0: return 0;
+            case 1: return 1;
+            default:;
         }
-        for (byte i = 0; )
+        byte [][] pairs = findPairs(s);
+        return findLongestPairThatDoesntContainsAnyOtherPair(pairs);
     }
 
+    private static byte [][] findPairs(String s){
+        char [] chars = s.toCharArray();
+        byte [][] pairs = new byte[2][chars.length];
+        for (byte b = 0; b < chars.length; b++){
+            pairs[0][b] = b;
+            char firstChar = chars[b];
+            boolean pairIsFound = false;
+            for (byte b1 = (byte) (b + 1); b1 < chars.length && !pairIsFound; b1++){
+                if (chars[b1] == firstChar){
+                    pairs[1][b] = b1;
+                    pairIsFound = true;
+                }
+            }
+            if (!pairIsFound) {
+                pairs[1][b] = (byte) chars.length;
+            }
+        }
+        return pairs;
+    }
+
+    private static int findLongestPairThatDoesntContainsAnyOtherPair (byte [][] pairs){
+        int topDifference = 0;
+        for (byte b = 0; b < pairs[0].length; b++){
+            boolean containedPairIsFound = false;
+            for (byte b1 = 0; b1 < pairs[0].length; b1++){
+                if (b1 != b){
+                    if (isContain(pairs[0][b], pairs[1][b], pairs[0][b1], pairs[1][b1])) containedPairIsFound = true;
+                }
+            }
+            if (!containedPairIsFound && (Math.abs(pairs[0][b] - pairs[1][b]) > topDifference))
+                topDifference = Math.abs(pairs[0][b] - pairs[1][b]);
+        }
+        return topDifference;
+    }
+
+    private static boolean isContain(byte a1, byte a2, byte b1, byte b2){
+        return (b1 > a1 && b2 < a2);
+    }
 
 //    public static int lengthOfLongestSubstring(String s) {
 //        if (s.length() == 0) return 0;
