@@ -12,7 +12,8 @@ public class FindSubstring {
             default:;
         }
         byte [][] pairs = findPairs(s);
-        return findLongestPairThatDoesntContainsAnyOtherPair(pairs);
+        optimisePairs(pairs);
+        return getTopDifference(pairs);
     }
 
     private static byte [][] findPairs(String s){
@@ -35,24 +36,46 @@ public class FindSubstring {
         return pairs;
     }
 
-    private static int findLongestPairThatDoesntContainsAnyOtherPair (byte [][] pairs){
-        int topDifference = 0;
+    private static void optimisePairs(byte[][] pairs) {
         for (byte b = 0; b < pairs[0].length; b++){
-            boolean containedPairIsFound = false;
             for (byte b1 = 0; b1 < pairs[0].length; b1++){
-                if (b1 != b){
-                    if (isContain(pairs[0][b], pairs[1][b], pairs[0][b1], pairs[1][b1])) containedPairIsFound = true;
+                if (b1 <= b){
+                    if ((pairs[0][b1] >= pairs[0][b]) && (pairs[1][b] >= pairs[1][b1] && pairs[1][b] != pairs[1].length)){
+                        if ((pairs[0][b1] - pairs[0][b]) > (pairs[1][b] - pairs[1][b1])){
+                            pairs[1][b] = (byte) (pairs[1][b1] - 1);
+                        }
+                        else {
+                            pairs[0][b] = (byte) (pairs[0][b1] + 1);
+                        }
+                    }
                 }
             }
-            if (!containedPairIsFound && (Math.abs(pairs[0][b] - pairs[1][b]) > topDifference))
-                topDifference = Math.abs(pairs[0][b] - pairs[1][b]);
+        }
+    }
+
+    private static int getTopDifference(byte [][] pairs){
+        int topDifference = 0;
+        for (byte b = 0; b < pairs[0].length; b++){
+            if (pairs[1][b] - pairs[0][b] > topDifference) topDifference = pairs[1][b] - pairs[0][b];
         }
         return topDifference;
     }
 
-    private static boolean isContain(byte a1, byte a2, byte b1, byte b2){
-        return (b1 > a1 && b2 < a2);
-    }
+//    private static int findLongestPairThatDoesntContainsAnyOtherPair (byte [][] pairs){
+//        int topDifference = 0;
+//        for (byte b = 0; b < pairs[0].length; b++){
+//            boolean containedPairIsFound = false;
+//            for (byte b1 = 0; b1 < pairs[0].length; b1++){
+//                if (b1 != b){
+//                    if (isContain(pairs[0][b], pairs[1][b], pairs[0][b1], pairs[1][b1])) containedPairIsFound = true;
+//                }
+//            }
+//            if (!containedPairIsFound && (Math.abs(pairs[0][b] - pairs[1][b]) > topDifference))
+//                topDifference = Math.abs(pairs[0][b] - pairs[1][b]);
+//        }
+//        return topDifference;
+//    }
+
 
 //    public static int lengthOfLongestSubstring(String s) {
 //        if (s.length() == 0) return 0;

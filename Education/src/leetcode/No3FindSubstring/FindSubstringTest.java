@@ -21,7 +21,7 @@ public class FindSubstringTest {
 //        String s = "rlyauuzdrcnjkphclffrkeecbpdipufhidjcxjhrnxcxmjcxohqanxdrmgzebhnlmwpmhwdvthsfqueeexgrujigskmvrzgfwvrf";
 //        System.out.println(lengthOfLongestSubstring(s));
 
-        System.out.println( lengthOfLongestSubstring("au"));
+        System.out.println( lengthOfLongestSubstring("abcabcbb"));
 
     }
 }
