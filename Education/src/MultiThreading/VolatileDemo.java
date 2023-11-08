@@ -17,8 +17,9 @@ public class VolatileDemo {
 //            exc.printStackTrace();
 //
         vt.start();
-        vt.keepRunning = false;
         try {
+            Thread.sleep(1000);
+            vt.keepRunning = false;
             vt.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
