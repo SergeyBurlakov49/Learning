@@ -2,20 +2,32 @@ package Generics;
 
 public class NumberBox <T extends Number> {
 
-    public T [] arr;
+    public T [] array;
 
-    public NumberBox (T [] arr){
-        this.arr = arr;
+    public NumberBox (T[] arr){
+        array = arr;
     }
 
-    public double compare(NumberBox<?> anotherBox){
-        double result = 0.0;
-        for (T t : this.arr) {
-            result += t.doubleValue();
+    public double getSum(){
+        if (array.length == 0) return 0;
+        double sum = 0.0;
+        for (T num:array){
+            sum += num.doubleValue();
         }
-        for (int i = 0; i < anotherBox.arr.length; i++) {
-            result -= anotherBox.arr[i].doubleValue();
-        }
-        return result;
+        return sum;
     }
+
+    public double getAverage(){
+        if (array.length == 0) return 0;
+        return (this.getSum() / array.length);
+    }
+
+    public double compareBySum(NumberBox<?> anotherBox){
+        return (this.getSum() - anotherBox.getSum());
+    }
+
+    public double compareByAverage(NumberBox<?> anotherBox){
+        return (this.getAverage() - anotherBox.getAverage());
+    }
+
 }

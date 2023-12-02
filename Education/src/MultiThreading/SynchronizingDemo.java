@@ -6,38 +6,10 @@ public class SynchronizingDemo {
         Counter nonSyncr = new Counter(0);
         Counter syncr = new Counter(0);
 
-        Thread nonSyncrIncr = new Thread(){
-
-            public void run(){
-                for (int x = 0; x < 1000000; x++) nonSyncr.Incr();
-            }
-
-        };
-
-        Thread nonSyncrDecr = new Thread(){
-
-            public void run(){
-                for (int x = 0; x < 1000000; x++) nonSyncr.Decr();
-
-            }
-
-        };
-
-        Thread syncrIncr = new Thread(){
-
-            public void run(){
-                for (int x = 0; x < 1000000; x++) syncr.synchronizedIncr();
-            }
-
-        };
-
-        Thread syncrDecr = new Thread(){
-
-            public void run(){
-                for (int x = 0; x < 1000000; x++) syncr.synchronizedDecr();
-            }
-
-        };
+        Thread nonSyncrIncr = new Thread(() -> {for (int i = 0; i < 1000000; i++) nonSyncr.Incr();});
+        Thread nonSyncrDecr = new Thread(() -> {for (int i = 0; i < 1000000; i++) nonSyncr.Decr();});
+        Thread syncrIncr = new Thread(() -> {for (int i = 0; i < 1000000; i++) syncr.synchronizedIncr();});
+        Thread syncrDecr = new Thread(() -> {for (int i = 0; i < 1000000; i++) syncr.synchronizedDecr();});
 
         nonSyncrIncr.start();
         nonSyncrDecr.start();
