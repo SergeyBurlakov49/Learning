@@ -10,11 +10,11 @@ public class RandomTest {
 
     public static double randomTest(Supplier<Double> randomFunction){
         double result = 0.0;
-        for (int i = 0; i < 1000000; i++) {
+        for (int i = 0; i < 100000000; i++) {
             result += randomFunction.get();
         }
         System.out.println(result);
-        return Math.abs(0.5 - (result / 1000000));
+        return Math.abs(0.5 - (result / 100000000));
     }
 
 }
