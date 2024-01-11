@@ -4,7 +4,7 @@ import Utils.BubbleSort;
 
 import java.util.Comparator;
 
-public class Student implements Comparable<Student>{
+public class Student implements Comparable<Student> {
 
 //    public static Comparator<Student> comparatorByAge = (a, b) -> a.age - b.age;
     public static Comparator<Student> comparatorByAge = Comparator.comparingInt(a -> a.age);
@@ -58,5 +58,4 @@ public class Student implements Comparable<Student>{
             System.out.println(student);
         }
     }
-
 }
