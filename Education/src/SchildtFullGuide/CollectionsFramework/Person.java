@@ -1,9 +1,10 @@
 package SchildtFullGuide.CollectionsFramework;
 
+import java.util.Comparator;
 import java.util.Objects;
 
 
-public class Person {
+public class Person implements Comparable<Person>{
     private String name;
     private int age;
 
@@ -36,5 +37,22 @@ public class Person {
     @Override
     public int hashCode() {
         return Utils.HashCode.getHashCode(name, age);
+    }
+
+    @Override
+    public int compareTo(Person o) {
+        return this.name.compareTo(o.name);
+    }
+
+    public static AgeComparator ageComparator(){
+        return new AgeComparator();
+    }
+
+    private static class AgeComparator implements Comparator<Person>{
+
+        @Override
+        public int compare(Person o1, Person o2) {
+            return Integer.compare(o1.age, o2.age);
+        }
     }
 }
