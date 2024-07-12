@@ -53,8 +53,7 @@ public class MyCollection <T> implements Iterable<T> {
         @Override
         public void forEachRemaining(Consumer<? super T> action) {
             while (this.hasNext()){
-                next();
-                action.accept(arr[position]);
+                action.accept(next());
             }
         }
 

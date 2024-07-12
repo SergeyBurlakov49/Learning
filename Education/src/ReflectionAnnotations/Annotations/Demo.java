@@ -12,7 +12,7 @@ public class Demo {
                                                                                                                         // https://gist.github.com/vegaasen/157fbc6dce8545b7f12c
 
     @SafeVarargs                                                                                                        // убирает предупреждение о небезопасности переменного числа
-                                                                                                                        // обобщенных аргументов, но по-моему это какой-то кальный код
+                                                                                                                        // обобщенных аргументов
     public static <T>  void varArgsMethod(T ... objects){
         for (T ob:objects) System.out.println(ob);
     }

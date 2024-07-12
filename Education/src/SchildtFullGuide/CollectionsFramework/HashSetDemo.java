@@ -19,7 +19,7 @@ public class HashSetDemo {
         Person person = null;
         for (int i = 0; i < randomStrings.length; i++) {
             if (i == 500000){
-                person = new Person(randomStrings[i], Utils.RandomInRange.randomInRange(16,100));
+                person = new Person(randomStrings[i], Utils.RandomInRange.randomInRange(16,100));                       // я писал этот код год назад, что тут происходит?
                 hashSet.add(person);
                 arrayList.add(person);
             }
